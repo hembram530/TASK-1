@@ -1,0 +1,68 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+// Function to ask a question and return 1 if the answer is correct, 0 otherwise
+int askQuestion(char *question, char *answer, char *option1, char *option2, char *option3) {
+    char userAnswer[2]; // Assuming the user's answer will be a single character
+    
+    // Print the question and options
+    printf("%s\n", question);
+    printf("A. %s\n", option1);
+    printf("B. %s\n", option2);
+    printf("C. %s\n", option3);
+    printf("Your answer: ");
+    
+    // Read user's answer
+    scanf("%s", userAnswer);
+    
+    // Convert user's answer to uppercase for case insensitivity
+    userAnswer[0] = toupper(userAnswer[0]);
+    
+    // Check if the answer is correct
+    if (strcmp(userAnswer, answer) == 0) {
+        printf("Correct!\n");
+        return 1; // Return 1 for correct answer
+    } else {
+        printf("Wrong! The correct answer is %s\n", answer);
+        return 0; // Return 0 for wrong answer
+    }
+}
+
+int main() {
+    int score = 0;
+    char answer[2]; // Assuming answers will be single characters
+    
+    // Sample questions and answers
+    char *questions[] = {
+        "What is the capital of France?",
+        "Which planet is known as the Red Planet?",
+        "Who wrote 'Romeo and Juliet'?"
+    };
+    
+    char *answers[] = {
+        "A", // Paris
+        "B", // Mars
+        "C"  // Shakespeare
+    };
+    
+    char *options[][3] = {
+        {"Paris", "London", "Berlin"},
+        {"Jupiter", "Mars", "Saturn"},
+        {"Jane Austen", "William Shakespeare", "Charles Dickens"}
+    };
+    
+    int numQuestions = sizeof(questions) / sizeof(questions[0]);
+    
+    // Loop through each question
+    for (int i = 0; i < numQuestions; i++) {
+        // Ask the question and check if the answer is correct
+        score += askQuestion(questions[i], answers[i], options[i][0], options[i][1], options[i][2]);
+        printf("\n");
+    }
+    
+    // Print final score
+    printf("Quiz ended! Your final score is %d out of %d.\n", score, numQuestions);
+    
+    return 0;
+}
